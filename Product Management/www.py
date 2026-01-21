@@ -1,4 +1,5 @@
 
+
 class Product:
 	def __init__(self, product_id, name, price, quantity):
 		self.product_id = product_id
@@ -26,57 +27,65 @@ class ElectronicsProduct(Product):
 		super().show_info()
 		print(f"รับประกัน: {self.warranty_period} ปี")
 
-product = []
-while True:
-	print("\n Advanced Product Management System")
-	print("1. เพิ่มสินค้าอาหาร")
-	print("2. เพิ่มสินค้าอิเล็กทรอนิกส์")
-	print("3. แสดงสินค้าทั้งหมด")
-	print("4. ลบสินค้า")
-	print("5. ออกจากโปรแกรม")
-	choice = input("เลือกเมนู  ")
+class ProductManagementApp:
+	def __init__(self):
+		self.product = []
 
-	if choice == '1':
-		pid = input("รหัสสินค้า: ")
-		name = input("ชื่อสินค้า: ")
-		price = float(input("ราคาสินค้า: "))
-		quantity = int(input("จำนวนสินค้า: "))
-		exp = input("วันหมดอายุ (วว/ดด/ปปปป): ")
-		product.append(FoodProduct(pid, name, price, quantity, exp))
-		print("เพิ่มสินค้าอาหารเรียบร้อยแล้ว")
+	def run(self):
+		while True:
+			print("\n Advanced Product Management System")
+			print("1. เพิ่มสินค้าอาหาร")
+			print("2. เพิ่มสินค้าอิเล็กทรอนิกส์")
+			print("3. แสดงสินค้าทั้งหมด")
+			print("4. ลบสินค้า")
+			print("5. ออกจากโปรแกรม")
+			choice = input("เลือกเมนู  ")
 
-	elif choice == '2':
-		pid = input("รหัสสินค้า: ")
-		name = input("ชื่อสินค้า: ")
-		price = float(input("ราคาสินค้า: "))
-		warranty = int(input("ระยะเวลารับประกัน (ปี): "))
-		product.append(ElectronicsProduct(pid, name, price, warranty))
-		print("เพิ่มสินค้าอิเล็กทรอนิกส์เรียบร้อยแล้ว")
+			if choice == '1':
+				pid = input("รหัสสินค้า: ")
+				name = input("ชื่อสินค้า: ")
+				price = float(input("ราคาสินค้า: "))
+				quantity = int(input("จำนวนสินค้า: "))
+				exp = input("วันหมดอายุ (วว/ดด/ปปปป): ")
+				self.product.append(FoodProduct(pid, name, price, quantity, exp))
+				print("เพิ่มสินค้าอาหารเรียบร้อยแล้ว")
 
-	elif choice == '3':
-		if not product:
-			print("ไม่มีสินค้าในระบบ")
-		else:
-			print("สินค้าทั้งหมด:")
-			for idx, prod in enumerate(product):
-				print(f"{idx + 1}. ", end="")
-				prod.show_info()
+			elif choice == '2':
+				pid = input("รหัสสินค้า: ")
+				name = input("ชื่อสินค้า: ")
+				price = float(input("ราคาสินค้า: "))
+				warranty = int(input("ระยะเวลารับประกัน (ปี): "))
+				self.product.append(ElectronicsProduct(pid, name, price, warranty))
+				print("เพิ่มสินค้าอิเล็กทรอนิกส์เรียบร้อยแล้ว")
 
-	elif choice == '4':
-		if not product:
-			print("ไม่มีสินค้าในระบบ")
-		else:
-			print("สินค้าทั้งหมด:")
-			for idx, prod in enumerate(product):
-				print(f"{idx + 1}. ", end="")
-				prod.show_info()
-			del_index = int(input("เลือกหมายเลขสินค้าที่ต้องการลบ: ")) - 1
-			if 0 <= del_index < len(product):
-				del product[del_index]
-				print("ลบสินค้าสำเร็จ")
-			else:
-				print("หมายเลขสินค้าที่เลือกไม่ถูกต้อง")
+			elif choice == '3':
+				if not self.product:
+					print("ไม่มีสินค้าในระบบ")
+				else:
+					print("สินค้าทั้งหมด:")
+					for idx, prod in enumerate(self.product):
+						print(f"{idx + 1}. ", end="")
+						prod.show_info()
 
-	elif choice == '5':
-		print("ออกจากโปรแกรม")
-		break
+			elif choice == '4':
+				if not self.product:
+					print("ไม่มีสินค้าในระบบ")
+				else:
+					print("สินค้าทั้งหมด:")
+					for idx, prod in enumerate(self.product):
+						print(f"{idx + 1}. ", end="")
+						prod.show_info()
+					del_index = int(input("เลือกหมายเลขสินค้าที่ต้องการลบ: ")) - 1
+					if 0 <= del_index < len(self.product):
+						del self.product[del_index]
+						print("ลบสินค้าสำเร็จ")
+					else:
+						print("หมายเลขสินค้าที่เลือกไม่ถูกต้อง")
+
+			elif choice == '5':
+				print("ออกจากโปรแกรม")
+				break
+
+if __name__ == "__main__":
+	app = ProductManagementApp()
+	app.run()
